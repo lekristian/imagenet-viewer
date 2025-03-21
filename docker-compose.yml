@@ -1,0 +1,73 @@
+
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: imagenet_postgres
+    environment:
+      POSTGRES_DB: my_db
+      POSTGRES_USER: my_user
+      POSTGRES_PASSWORD: my_password
+    ports:
+      - "5432:5432" 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U my_user -d my_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: imagenet_app
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      # mount local files so you can easily modify the script/XML without rebuilding
+      - ./:/app
+    command: >
+      bash -c "
+        python wait_for_db.py &&
+        python parse_data.py
+      "
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: finvix_ui
+    depends_on:
+      api:
+        condition: service_started
+    volumes:
+      - ./ui:/app
+    ports:
+      - "5173:5173"   
+    environment:
+      VITE_API_URL: http://finvix_api:8080
+    command: bash -c "bun install && bun dev --host 0.0.0.0"
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: finvix_api
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./api:/app
+    ports:
+      - "8080:8080" 
+    command: >
+      bash -c "
+        bun install &&
+        bun start
+      "
+volumes:
+  postgres_data:

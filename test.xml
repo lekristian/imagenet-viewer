@@ -1,0 +1,24 @@
+<ImageNetStructure>
+    <releaseData>fall2011</releaseData>
+    <synset wnid="fall11" words="ImageNet 2011 Fall Release" gloss="ImageNet 2011 Fall Release.">
+        <synset wnid="test1" words="test1" gloss="test1">
+            <synset wnid="test11" words="test11" gloss="test11">
+                <synset wnid="test111" words="test111" gloss="test111"></synset>
+                <synset wnid="test112" words="test112" gloss="test112"></synset>
+                <synset wnid="test113" words="test113" gloss="test113"></synset>
+            </synset>
+            <synset wnid="test12" words="test12" gloss="test12"></synset>
+            <synset wnid="test13" words="test13" gloss="test13"></synset>
+        </synset>
+
+        <synset wnid="test2" words="test2" gloss="test2">
+            <synset wnid="test21" words="test21" gloss="test21"></synset>
+            <synset wnid="test22" words="test22" gloss="test22"></synset>
+            <synset wnid="test23" words="test23" gloss="test23"></synset>
+            <synset wnid="test24" words="test24" gloss="test24"></synset>
+        </synset>
+
+        <synset wnid="test3" words="test3" gloss="test3"></synset>
+        <synset wnid="test4" words="test4" gloss="test4"></synset>
+    </synset>
+</ImageNetStructure>
