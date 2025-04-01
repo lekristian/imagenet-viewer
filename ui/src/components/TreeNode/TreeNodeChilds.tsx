@@ -42,6 +42,7 @@ export const TreeNodeChilds: React.FC<TreeNodeChildsProps> = (props) => {
             <TreeNode
               key={child.id}
               nodeId={child.id}
+              propNode={child}
               onSelect={onSelect}
               level={level + 1}
               parentPath={[...(parentPath || []), rootNode]}

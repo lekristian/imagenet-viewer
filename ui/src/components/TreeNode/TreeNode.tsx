@@ -13,6 +13,7 @@ interface TreeNodeProps {
   onSelect: (node: Node, path: Node[]) => void;
   level: number;
   parentPath?: Node[];
+  propNode?: Node;
 }
 
 export const TreeNode: React.FC<TreeNodeProps> = ({
@@ -20,6 +21,7 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
   onSelect,
   level,
   parentPath = [],
+  propNode,
 }: TreeNodeProps) => {
   // Custom hooks
   const { paddingLeft } = useStyle(level);
@@ -32,7 +34,7 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
     hasMore,
     onLoadMoreChildren,
     onToggleExpanded,
-  } = useFetchNode(nodeId);
+  } = useFetchNode(nodeId, propNode);
 
   // Hadlers
   const handleSelect = useCallback(() => {

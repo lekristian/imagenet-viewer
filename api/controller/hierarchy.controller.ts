@@ -38,7 +38,11 @@ export const getHierarchyChildren = async (
       parseInt(req.query.offset as string),
       parseInt(req.query.limit as string)
     );
-    return res.json(result);
+    const resultUpdated = result.data.map((node) => ({
+      ...node,
+      hasChildren: node.size > 0,
+    }));
+    return res.json({ ...result, data: resultUpdated });
   } catch (error) {
     console.error("GET /hierarchy/:id/children error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -68,7 +72,12 @@ export const searchNodes = async (
       take: 100,
     });
 
-    return res.json(results);
+    const resultsUpdated = results.map((node) => ({
+      ...node,
+      hasChildren: node.size > 0,
+    }));
+
+    return res.json(resultsUpdated);
   } catch (error) {
     console.error("GET /search error:", error);
     return res.status(500).json({ error: "Internal Server Error" });

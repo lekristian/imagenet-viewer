@@ -7,7 +7,7 @@ const apiUrl = import.meta.env.VITE_API_URL || "http://finvix_api:8080";
 const resolvedApiUrl =
   window.location.hostname === "localhost" ? "http://localhost:8080" : apiUrl;
 
-export const useFetchNode = (nodeId: number) => {
+export const useFetchNode = (nodeId: number, propNode?: Node) => {
   const [node, setNode] = useState<Node | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [childrens, setChildrens] = useState<Node[]>([]);
@@ -29,6 +29,11 @@ export const useFetchNode = (nodeId: number) => {
   // Fetch node data
   useEffect(() => {
     const fetchNode = async () => {
+      if (propNode) {
+        setNode(propNode);
+        return;
+      }
+
       try {
         const response = await fetch(`${resolvedApiUrl}/hierarchy/${nodeId}`);
         const data = await response.json();
@@ -40,7 +45,7 @@ export const useFetchNode = (nodeId: number) => {
     };
 
     fetchNode();
-  }, [nodeId]);
+  }, [nodeId, propNode]);
 
   // Fetch children when expanded
   useEffect(() => {
