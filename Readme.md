@@ -92,5 +92,6 @@ docker exec -it <container_name> /bin/sh
 - Configure production-ready Docker setups and security reviews.
 - Add global state management library like Zustand.
 - Add schema declaration and validation library Zod.
+- I would also add Tanstack for handling queries and pagination
 
   This documentation provides a step-by-step guide to setting up and running the project, along with helpful troubleshooting tips. Be sure to verify that all paths and specific commands are correct for your environment.
